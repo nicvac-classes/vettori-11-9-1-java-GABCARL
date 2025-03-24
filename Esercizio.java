@@ -1,26 +1,42 @@
-//LEGGERE LE ISTRUZIONI NEL FILE README.md
-
-//Import di Classi Java necessarie al funzionamento del programma
 import java.util.Scanner;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
 
 // Classe principale, con metodo main
 class Esercizio {
-    // Il programma parte con una chiamata a main().
-    public static void main(String args[])
-    {
-        //Variabili del programma
-        String nome;
+    
+    private static Scanner in = new Scanner(System.in);
 
-        //Creo l'oggetto in per l'input da tastiera
-        Scanner in = new Scanner( System.in );
+    public static void main(String args[]) throws Exception {
 
-        //Leggo l'input da tastiera
-        System.out.print("Inserisci il tuo nome: ");
-        nome = in.nextLine();
+        String nomeFileLettura, nomeFileScrittura, riga;
 
-        //Output del nome acquisito da tastiera
-        System.out.println("Ciao "+nome+"!");
+        System.out.print("Inserire il nome del file da leggere: ");
+        nomeFileLettura = in.next();
+        System.out.print("Inserire il nome del file su cui scrivere: ");
+        nomeFileScrittura = in.next();
+
+        Scanner infile = new Scanner(new FileReader(nomeFileLettura));
+        FileWriter outfile = new FileWriter(new File(nomeFileScrittura));
+
+        do{
+            riga = infile.nextLine();
+            riga = inverti(riga);
+            outfile.write(riga + "\n");
+        }while(infile.hasNextLine());
+        infile.close();
+        outfile.close();
+    }
+
+    public static String inverti(String riga){
+        String agir = "";
+
+        for(int i = riga.length()-1; i >= 0; i--){
+            agir += riga.charAt(i);
+        }
+
+        return agir;
     }
 }
 
-//LEGGERE LE ISTRUZIONI NEL FILE README.md
